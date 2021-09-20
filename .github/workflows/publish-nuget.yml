@@ -1,0 +1,27 @@
+name: Publish Nuget
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  setup-version:
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_NOLOGO: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup dotnet 3.1
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1
+          source-url: https://nuget.pkg.github.com/brennadotdev/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - run: dotnet build ./src/Discord.Serverless/Discord.Serverless.csproj
+      - name: Create the package
+        run: dotnet pack --configuration Release ./src/Discord.Serverless/Discord.Serverless.csproj
+      - name: Publish the package to GPR
+        run: dotnet nuget push ./src/Discord.Serverless/bin/Release/*.nupkg
