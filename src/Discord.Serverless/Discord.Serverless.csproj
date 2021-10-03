@@ -11,6 +11,7 @@
         <Authors>@brennadotdev</Authors>
         <PackageDescription>The core of a Discord bot using AWS Lambda</PackageDescription>
         <RepositoryUrl>https://github.com/brennadotdev/discord-serverless</RepositoryUrl>
+        <PackageVersion>1.0.1</PackageVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Amazon.Lambda.Core" Version="2.0.0" />
